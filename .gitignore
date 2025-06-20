@@ -17,3 +17,4 @@ local.properties
 /.idea/misc.xml
 /.idea/migrations.xml
 /.idea/*
+/app/arborescence_essentielle.md

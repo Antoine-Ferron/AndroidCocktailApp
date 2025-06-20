@@ -5,9 +5,19 @@ import com.example.cocktailapi.*
 import com.example.cocktailapi.model.RepositoryUtils.sendGet
 import com.google.gson.Gson
 
+/**
+ * Repository for the cocktails
+ */
 object CocktailRepository {
 
-    fun getCocktailByName(name: String): DrinksBean? {
+    /**
+     * Get the list of cocktails from the API
+     *
+     * @param name The name of the cocktail
+     *
+     * @return The list of cocktails
+     */
+    suspend fun getCocktailByName(name: String): DrinksBean? {
         val result = sendGet("${SEARCH_BASE_URL}s=$name")
         if (result.contains("no data found"))
             return null
@@ -15,7 +25,14 @@ object CocktailRepository {
         return Gson().fromJson(result, DrinksBean::class.java)
     }
 
-    fun getCocktailByFirstLetter(letter: Char): DrinksBean? {
+    /**
+     * Get the list of cocktails from the API
+     *
+     * @param letter The first letter of the cocktail name
+     *
+     * @return The list of cocktails
+     */
+    suspend fun getCocktailByFirstLetter(letter: Char): DrinksBean? {
         val result = sendGet("${SEARCH_BASE_URL}f=$letter")
         if (result.contains("no data found"))
             return null
@@ -23,7 +40,14 @@ object CocktailRepository {
         return Gson().fromJson(result, DrinksBean::class.java)
     }
 
-    fun getCocktailById(id: String): DrinksBean? {
+    /**
+     * Get the list of cocktails from the API
+     *
+     * @param id The id of the cocktail
+     *
+     * @return The list of cocktails
+     */
+    suspend fun getCocktailById(id: String): DrinksBean? {
         val result = sendGet("${LOOKUP_BASE_URL}i=$id")
         if (result.contains("no data found"))
             return null
@@ -31,11 +55,23 @@ object CocktailRepository {
         return Gson().fromJson(result, DrinksBean::class.java)
     }
 
-    fun getRandomCocktail(): DrinksBean? {
+    /**
+     * Get a random cocktail from the API
+     *
+     * @return The random cocktail
+     */
+    suspend fun getRandomCocktail(): DrinksBean? {
         return Gson().fromJson(sendGet(RANDOM_BASE_URL), DrinksBean::class.java)
     }
 
-    fun getCocktailByIngredient(ingredient: String): SmallDrinksBean? {
+    /**
+     * Get the list of cocktails from the API
+     *
+     * @param ingredient The ingredient of the cocktail
+     *
+     * @return The list of cocktails
+     */
+    suspend fun getCocktailByIngredient(ingredient: String): SmallDrinksBean? {
         val result = sendGet("${SEARCH_BASE_URL}i=$ingredient")
         if (result.contains("no data found"))
             return null
@@ -43,7 +79,14 @@ object CocktailRepository {
         return Gson().fromJson(result, SmallDrinksBean::class.java)
     }
 
-    fun getCocktailByAlcoholic(alcoholic: String): SmallDrinksBean? {
+    /**
+     * Get the list of cocktails from the API
+     *
+     * @param alcoholic The alcoholic of the cocktail
+     *
+     * @return The list of cocktails
+     */
+    suspend fun getCocktailByAlcoholic(alcoholic: String): SmallDrinksBean? {
         val result = sendGet("${FILTER_BASE_URL}a=$alcoholic")
         if (result.contains("no data found"))
             return null
@@ -51,7 +94,14 @@ object CocktailRepository {
         return Gson().fromJson(result, SmallDrinksBean::class.java)
     }
 
-    fun getCocktailByCategory(category: String): SmallDrinksBean? {
+    /**
+     * Get the list of cocktails from the API
+     *
+     * @param category The category of the cocktail
+     *
+     * @return The list of cocktails
+     */
+    suspend fun getCocktailByCategory(category: String): SmallDrinksBean? {
         val result = sendGet("${FILTER_BASE_URL}c=$category")
         if (result.contains("no data found"))
             return null
@@ -59,7 +109,14 @@ object CocktailRepository {
         return Gson().fromJson(result, SmallDrinksBean::class.java)
     }
 
-    fun getCocktailByGlass(glass: String): SmallDrinksBean? {
+    /**
+     * Get the list of cocktails from the API
+     *
+     * @param glass The glass of the cocktail
+     *
+     * @return The list of cocktails
+     */
+    suspend fun getCocktailByGlass(glass: String): SmallDrinksBean? {
         val result = sendGet("${FILTER_BASE_URL}g=$glass")
         if (result.contains("no data found"))
             return null
@@ -68,10 +125,16 @@ object CocktailRepository {
     }
 }
 
+/**
+ * Data class for the cocktails
+ */
 data class DrinksBean(
     val drinks: List<CocktailBean>?
 )
 
+/**
+ * Data class for the cocktails
+ */
 data class CocktailBean(
     val idDrink: String,
     val strDrink: String,
@@ -124,10 +187,16 @@ data class CocktailBean(
     val strCreativeCommonsConfirmed: String?
 )
 
+/**
+ * Data class for the cocktails
+ */
 data class SmallDrinksBean(
     val drinks: List<SmallCocktailBean>
 )
 
+/**
+ * Data class for the cocktails
+ */
 data class SmallCocktailBean (
     val strDrink: String,
     val strDrinkThumb: String?,
