@@ -8,28 +8,28 @@ object ListItemRepository {
     /**
      * Get the list of categories from the API
      */
-    fun getListCategory(): ListCategoryBean? {
+    suspend fun getListCategory(): ListCategoryBean? {
         return Gson().fromJson(RepositoryUtils.sendGet( "${LIST_BASE_URL}c=list"), ListCategoryBean::class.java)
     }
 
     /**
      * Get the list of glasses from the API
      */
-    fun getListGlass(): ListGlassBean? {
+    suspend fun getListGlass(): ListGlassBean? {
         return Gson().fromJson(RepositoryUtils.sendGet( "${LIST_BASE_URL}g=list"), ListGlassBean::class.java)
     }
 
     /**
      * Get the list of alcoholics from the API
      */
-    fun getListAlcoholic(): ListAlcoholicBean? {
+    suspend fun getListAlcoholic(): ListAlcoholicBean? {
         return Gson().fromJson(RepositoryUtils.sendGet( "${LIST_BASE_URL}a=list"), ListAlcoholicBean::class.java)
     }
 
     /**
      * Get the list of ingredients from the API
      */
-    fun getListIngredient(): ListIngredientBean? {
+    suspend fun getListIngredient(): ListIngredientBean? {
         return Gson().fromJson(RepositoryUtils.sendGet( "${LIST_BASE_URL}i=list"), ListIngredientBean::class.java)
     }
 }
