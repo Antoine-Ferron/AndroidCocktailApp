@@ -185,7 +185,28 @@ data class CocktailBean(
     val strMeasure15: String?,
     val strImaageAttribution: String?,
     val strCreativeCommonsConfirmed: String?
-)
+) {
+    val ingredientList: List<Pair<String, String?>>
+        get() {
+            val list = mutableListOf<Pair<String, String?>>()
+            if (!strIngredient1.isNullOrBlank()) list.add(strIngredient1 to strMeasure1)
+            if (!strIngredient2.isNullOrBlank()) list.add(strIngredient2 to strMeasure2)
+            if (!strIngredient3.isNullOrBlank()) list.add(strIngredient3 to strMeasure3)
+            if (!strIngredient4.isNullOrBlank()) list.add(strIngredient4 to strMeasure4)
+            if (!strIngredient5.isNullOrBlank()) list.add(strIngredient5 to strMeasure5)
+            if (!strIngredient6.isNullOrBlank()) list.add(strIngredient6 to strMeasure6)
+            if (!strIngredient7.isNullOrBlank()) list.add(strIngredient7 to strMeasure7)
+            if (!strIngredient8.isNullOrBlank()) list.add(strIngredient8 to strMeasure8)
+            if (!strIngredient9.isNullOrBlank()) list.add(strIngredient9 to strMeasure9)
+            if (!strIngredient10.isNullOrBlank()) list.add(strIngredient10 to strMeasure10)
+            if (!strIngredient11.isNullOrBlank()) list.add(strIngredient11 to strMeasure11)
+            if (!strIngredient12.isNullOrBlank()) list.add(strIngredient12 to strMeasure12)
+            if (!strIngredient13.isNullOrBlank()) list.add(strIngredient13 to strMeasure13)
+            if (!strIngredient14.isNullOrBlank()) list.add(strIngredient14 to strMeasure14)
+            if (!strIngredient15.isNullOrBlank()) list.add(strIngredient15 to strMeasure15)
+            return list
+        }
+}
 
 /**
  * Data class for the cocktails

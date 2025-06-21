@@ -3,78 +3,58 @@ package com.example.cocktailapi
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.cocktailapi.ui.MainScreenState
+import androidx.emoji2.text.EmojiCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.cocktailapi.navigation.Screen
+import com.example.cocktailapi.ui.DetailScreen // <- Import du nouveau fichier
+import com.example.cocktailapi.ui.HomeScreen    // <- Import du nouveau fichier
 import com.example.cocktailapi.ui.theme.CocktailApiTheme
 
 class MainActivity : ComponentActivity() {
 
-    private val mainViewModel by viewModels<MainViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EmojiCompat.init(this)
         setContent {
             CocktailApiTheme {
+                val navController = rememberNavController()
 
-                val state by mainViewModel.uiState.collectAsState()
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.Home.route
+                ) {
+                    composable(route = Screen.Home.route) {
+                        val mainViewModel: MainViewModel = viewModel()
+                        val state by mainViewModel.uiState.collectAsState()
 
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CocktailScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        state = state
-                    )
+                        HomeScreen(
+                            state = state,
+                            onCocktailClick = { cocktailId ->
+                                navController.navigate(Screen.Detail.createRoute(cocktailId))
+                            }
+                        )
+                    }
+
+                    composable(
+                        route = Screen.Detail.route,
+                        arguments = listOf(navArgument("cocktailId") { type = NavType.StringType })
+                    ) {
+                        val detailViewModel: DetailViewModel = viewModel()
+                        val state by detailViewModel.uiState.collectAsState()
+
+                        DetailScreen(
+                            state = state,
+                            onNavigateBack = { navController.popBackStack() }
+                        )
+                    }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun CocktailScreen(modifier: Modifier = Modifier, state: MainScreenState) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        if (state.isLoading) {
-            CircularProgressIndicator()
-        }
-
-        else if (state.error != null) {
-            Text(
-                text = state.error,
-                color = Color.Red,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        else if (state.cocktail != null) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "Cocktail du jour :",
-                    fontSize = 22.sp
-                )
-                Text(
-                    text = state.cocktail.strDrink,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
             }
         }
     }

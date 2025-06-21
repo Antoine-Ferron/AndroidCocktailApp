@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.okhttp)
     implementation(libs.gson)
+    implementation(libs.litert.support.api)
+    implementation(libs.androidx.emoji2)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -62,4 +64,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx.v281)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.navigation.compose)
+
 }
