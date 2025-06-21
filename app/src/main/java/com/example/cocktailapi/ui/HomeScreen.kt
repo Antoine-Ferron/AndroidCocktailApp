@@ -10,9 +10,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,51 +35,76 @@ import coil.compose.AsyncImage
 import com.example.cocktailapi.model.CocktailBean
 import com.example.cocktailapi.ui.theme.CocktailApiTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, state: MainScreenState, onCocktailClick: (String) -> Unit) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        contentAlignment = Alignment.Center
-    ) {
-        if (state.isLoading) {
-            CircularProgressIndicator()
-        } else if (state.error != null) {
-            Text(
-                text = state.error,
-                color = MaterialTheme.colorScheme.tertiary,
-                fontWeight = FontWeight.Bold
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    state: MainScreenState,
+    onCocktailClick: (String) -> Unit,
+    onSearchClick: () -> Unit
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Cocktail Aléatoire") },
+                actions = {
+                    IconButton(onClick = onSearchClick) {
+                        Icon(Icons.Default.Search, contentDescription = "Rechercher un cocktail")
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    actionIconContentColor = MaterialTheme.colorScheme.primary
+                )
             )
-        } else if (state.cocktail != null) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable { onCocktailClick(state.cocktail.idDrink) }
-            ) {
-                AsyncImage(
-                    model = state.cocktail.strDrinkThumb,
-                    contentDescription = "Image of ${state.cocktail.strDrink}",
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.Center
+        ) {
+            if (state.isLoading) {
+                CircularProgressIndicator()
+            } else if (state.error != null) {
+                Text(
+                    text = state.error,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    fontWeight = FontWeight.Bold
+                )
+            } else if (state.cocktail != null) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .size(200.dp)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop
-                )
+                        .padding(16.dp)
+                        .clickable { onCocktailClick(state.cocktail.idDrink) }
+                ) {
+                    AsyncImage(
+                        model = state.cocktail.strDrinkThumb,
+                        contentDescription = "Image of ${state.cocktail.strDrink}",
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
-                    text = "Cocktail du jour :",
-                    fontSize = 22.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = state.cocktail.strDrink,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                    Text(
+                        text = "Cocktail du jour :",
+                        fontSize = 22.sp,
+                        color = Color.White
+                    )
+                    Text(
+                        text = state.cocktail.strDrink,
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
         }
     }
@@ -132,7 +165,8 @@ fun CocktailScreenSuccessPreview() {
         )
         HomeScreen(
             state = MainScreenState(cocktail = fakeCocktail),
-            onCocktailClick = {}
+            onCocktailClick = {},
+            onSearchClick = {}
         )
     }
 
@@ -144,7 +178,8 @@ fun CocktailScreenLoadingPreview() {
     CocktailApiTheme {
         HomeScreen(
             state = MainScreenState(isLoading = true),
-            onCocktailClick = { }
+            onCocktailClick = { },
+            onSearchClick = {}
         )
     }
 }
@@ -155,7 +190,8 @@ fun CocktailScreenErrorPreview() {
     CocktailApiTheme {
         HomeScreen(
             state = MainScreenState(error = "Failed to load cocktail."),
-            onCocktailClick = {}
+            onCocktailClick = {},
+            onSearchClick = {}
         )
     }
 }

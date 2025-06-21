@@ -7,4 +7,6 @@ sealed class Screen(val route: String) {
 
         fun createRoute(cocktailId: String) = "detail_screen/$cocktailId"
     }
+    data object Search : Screen("search_screen")
+
 }

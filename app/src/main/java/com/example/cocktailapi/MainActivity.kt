@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import com.example.cocktailapi.navigation.Screen
 import com.example.cocktailapi.ui.DetailScreen // <- Import du nouveau fichier
 import com.example.cocktailapi.ui.HomeScreen    // <- Import du nouveau fichier
+import com.example.cocktailapi.ui.SearchScreen
 import com.example.cocktailapi.ui.theme.CocktailApiTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,6 +39,9 @@ class MainActivity : ComponentActivity() {
                             state = state,
                             onCocktailClick = { cocktailId ->
                                 navController.navigate(Screen.Detail.createRoute(cocktailId))
+                            },
+                            onSearchClick = {
+                                navController.navigate(Screen.Search.route)
                             }
                         )
                     }
@@ -52,6 +56,14 @@ class MainActivity : ComponentActivity() {
                         DetailScreen(
                             state = state,
                             onNavigateBack = { navController.popBackStack() }
+                        )
+                    }
+                    composable(route = Screen.Search.route) {
+                        SearchScreen(
+                            onNavigateBack = { navController.popBackStack() },
+                            onResultClick = { cocktailId ->
+                                navController.navigate(Screen.Detail.createRoute(cocktailId))
+                            }
                         )
                     }
                 }
