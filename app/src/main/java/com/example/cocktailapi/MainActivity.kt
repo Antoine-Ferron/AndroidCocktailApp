@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                                                 screen.icon!!,
                                                 contentDescription = stringResource(id = screen.titleResId!!)
                                             )
-                                        }, // Aussi pour l'accessibilité
+                                        },
                                         label = { Text(stringResource(id = screen.titleResId!!)) },
                                         selected = currentRoute == screen.route,
                                         onClick = {
@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { innerPadding ->
-                    // NavHost avec toutes les destinations
+                    // NavHost
                     NavHost(
                         navController = navController,
                         startDestination = Screen.Home.route,
@@ -104,7 +104,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        // Onglet 3: Parcourir (affiche la liste des catégories)
+                        // Onglet 3: Parcourir
                         composable(Screen.Browse.route) {
                             val viewModel: CategoryListViewModel = viewModel()
                             val state by viewModel.uiState.collectAsState()
@@ -121,7 +121,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        // Écran de Détail (accessible depuis plusieurs endroits)
+                        // Écran de Détail
                         composable(
                             route = Screen.Detail.route,
                             arguments = listOf(navArgument("cocktailId") {

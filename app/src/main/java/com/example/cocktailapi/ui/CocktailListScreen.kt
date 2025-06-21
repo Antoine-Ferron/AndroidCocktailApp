@@ -11,18 +11,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.cocktailapi.CocktailListState
 import com.example.cocktailapi.R
-import com.example.cocktailapi.CocktailListViewModel
 import com.example.cocktailapi.model.SmallCocktailBean
 import com.example.cocktailapi.ui.theme.CocktailApiTheme
 

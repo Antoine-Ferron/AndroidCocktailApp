@@ -1,4 +1,3 @@
-// Dans ui/DetailScreen.kt
 package com.example.cocktailapi.ui
 
 import androidx.compose.foundation.background
@@ -21,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.cocktailapi.R
-import org.tensorflow.lite.support.label.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,7 +66,7 @@ fun DetailScreen(
                 Column(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
-                        .verticalScroll(rememberScrollState()), // Pour faire défiler si le contenu est long
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     AsyncImage(
