@@ -16,20 +16,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.cocktailapi.CocktailListState
 import com.example.cocktailapi.R
 import com.example.cocktailapi.CocktailListViewModel
+import com.example.cocktailapi.model.SmallCocktailBean
+import com.example.cocktailapi.ui.theme.CocktailApiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CocktailListScreen(
+    state: CocktailListState,
     onCocktailClick: (String) -> Unit,
     onNavigateBack: () -> Unit
 ) {
-    val viewModel: CocktailListViewModel = viewModel()
-    val state by viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = {
@@ -77,5 +80,21 @@ fun CocktailListScreen(
                 Text("Aucun cocktail trouvé.")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CocktailListScreenPreview() {
+    val fakeCocktails = listOf(
+        SmallCocktailBean("Cosmopolitan", "", "1"),
+        SmallCocktailBean("Manhattan", "", "2")
+    )
+    CocktailApiTheme {
+        CocktailListScreen(
+            state = CocktailListState(title = "Classic", cocktails = fakeCocktails),
+            onCocktailClick = {},
+            onNavigateBack = {}
+        )
     }
 }

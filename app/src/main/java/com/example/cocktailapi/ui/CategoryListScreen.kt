@@ -8,23 +8,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cocktailapi.CategoryListViewModel
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.cocktailapi.CategoryListState
 import com.example.cocktailapi.R
+import com.example.cocktailapi.model.CategoryItemBean
+import com.example.cocktailapi.ui.theme.CocktailApiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryListScreen(
+    state: CategoryListState,
     onCategoryClick: (String) -> Unit
 ) {
-    val viewModel: CategoryListViewModel = viewModel()
-    val state by viewModel.uiState.collectAsState()
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -53,5 +51,21 @@ fun CategoryListScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CategoryListScreenPreview() {
+    val fakeCategories = listOf(
+        CategoryItemBean("Cocktail"),
+        CategoryItemBean("Ordinary Drink"),
+        CategoryItemBean("Shake")
+    )
+    CocktailApiTheme {
+        CategoryListScreen(
+            state = CategoryListState(categories = fakeCategories),
+            onCategoryClick = {}
+        )
     }
 }

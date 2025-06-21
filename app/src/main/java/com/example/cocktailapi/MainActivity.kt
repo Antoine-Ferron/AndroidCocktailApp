@@ -92,7 +92,11 @@ class MainActivity : ComponentActivity() {
 
                         // Onglet 2: Recherche
                         composable(Screen.Search.route) {
+                            val viewModel: SearchViewModel = viewModel()
+                            val state by viewModel.uiState.collectAsState()
                             SearchScreen(
+                                state = state,
+                                onQueryChange = viewModel::onQueryChange,
                                 onNavigateBack = { navController.popBackStack() },
                                 onResultClick = { cocktailId ->
                                     navController.navigate(Screen.Detail.createRoute(cocktailId))
@@ -102,7 +106,10 @@ class MainActivity : ComponentActivity() {
 
                         // Onglet 3: Parcourir (affiche la liste des catégories)
                         composable(Screen.Browse.route) {
+                            val viewModel: CategoryListViewModel = viewModel()
+                            val state by viewModel.uiState.collectAsState()
                             CategoryListScreen(
+                                state = state,
                                 onCategoryClick = { categoryName ->
                                     navController.navigate(
                                         Screen.CocktailList.createRoute(
@@ -137,7 +144,10 @@ class MainActivity : ComponentActivity() {
                                 navArgument("filterValue") { type = NavType.StringType }
                             )
                         ) {
+                            val viewModel: CocktailListViewModel = viewModel()
+                            val state by viewModel.uiState.collectAsState()
                             CocktailListScreen(
+                                state = state,
                                 onCocktailClick = { cocktailId ->
                                     navController.navigate(Screen.Detail.createRoute(cocktailId))
                                 },
