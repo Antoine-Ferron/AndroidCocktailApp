@@ -27,11 +27,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.cocktailapi.R
 import com.example.cocktailapi.model.CocktailBean
 import com.example.cocktailapi.ui.theme.CocktailApiTheme
 
@@ -46,10 +48,10 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Cocktail Aléatoire") },
+                title = { Text(stringResource(id = R.string.random_cocktail_title)) },
                 actions = {
                     IconButton(onClick = onSearchClick) {
-                        Icon(Icons.Default.Search, contentDescription = "Rechercher un cocktail")
+                        Icon(Icons.Default.Search, contentDescription = stringResource(id = R.string.search_icon_description))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -94,7 +96,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Text(
-                        text = "Cocktail du jour :",
+                        text = stringResource(id = R.string.cocktail_of_the_day),
                         fontSize = 22.sp,
                         color = Color.White
                     )

@@ -15,9 +15,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.cocktailapi.R
 import com.example.cocktailapi.CocktailListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +37,10 @@ fun CocktailListScreen(
                 title = { Text(state.title) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(id = R.string.back_button_description)
+                        )
                     }
                 }
             )
@@ -57,7 +62,10 @@ fun CocktailListScreen(
                             leadingContent = {
                                 AsyncImage(
                                     model = cocktail.strDrinkThumb,
-                                    contentDescription = cocktail.strDrink,
+                                    contentDescription = stringResource(
+                                        id = R.string.cocktail_image_description,
+                                        cocktail.strDrink
+                                    ),
                                     modifier = Modifier.size(56.dp)
                                 )
                             },

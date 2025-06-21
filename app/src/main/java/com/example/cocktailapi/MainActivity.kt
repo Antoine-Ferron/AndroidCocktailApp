@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -48,14 +49,13 @@ class MainActivity : ComponentActivity() {
                                         icon = {
                                             Icon(
                                                 screen.icon!!,
-                                                contentDescription = screen.title
+                                                contentDescription = stringResource(id = screen.titleResId!!)
                                             )
-                                        },
-                                        label = { Text(screen.title!!) },
+                                        }, // Aussi pour l'accessibilité
+                                        label = { Text(stringResource(id = screen.titleResId!!)) },
                                         selected = currentRoute == screen.route,
                                         onClick = {
                                             navController.navigate(screen.route) {
-                                                // Gère la pile de retour pour éviter d'empiler les écrans
                                                 popUpTo(navController.graph.findStartDestination().id) {
                                                     saveState = true
                                                 }

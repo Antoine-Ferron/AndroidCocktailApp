@@ -1,5 +1,6 @@
 package com.example.cocktailapi.model
 
+import android.content.Context
 import com.example.cocktailapi.*
 
 import com.example.cocktailapi.model.RepositoryUtils.sendGet
@@ -206,6 +207,18 @@ data class CocktailBean(
             if (!strIngredient15.isNullOrBlank()) list.add(strIngredient15 to strMeasure15)
             return list
         }
+
+    fun getLocalizedInstructions(context: Context): String? {
+        val currentLang = context.resources.configuration.locales[0].language
+
+        return when (currentLang) {
+            "fr" -> strInstructionsFR ?: strInstructions
+            "de" -> strInstructionsDE ?: strInstructions
+            "es" -> strInstructionsES ?: strInstructions
+            "it" -> strInstructionsIT ?: strInstructions
+            else -> strInstructions
+        }
+    }
 }
 
 /**
