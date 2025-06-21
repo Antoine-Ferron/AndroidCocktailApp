@@ -41,7 +41,7 @@ Pour lancer le projet localement, suivez ces étapes :
 
 1.  Clonez le dépôt sur votre machine :
     ```bash
-    git clone [https://github.com/VotreNomUtilisateur/NomDuProjet.git](https://github.com/VotreNomUtilisateur/NomDuProjet.git)
+    git clone https://github.com/Antoine-Ferron/AndroidCocktailApp.git
     ```
 2.  Ouvrez le projet avec la dernière version stable d'Android Studio.
 3.  Laissez Gradle synchroniser et télécharger toutes les dépendances.
